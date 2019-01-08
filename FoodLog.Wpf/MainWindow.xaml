@@ -1,0 +1,22 @@
+﻿<dx:ThemedWindow x:Class="FoodLog.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:viewModels="clr-namespace:FoodLog.Wpf.ViewModels"
+                 mc:Ignorable="d"
+                 Title="MainWindow" Height="350" Width="525" d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
+    <Grid>
+        <dxg:GridControl ItemsSource="{Binding Entries}" >
+            <dxg:GridColumn FieldName="EntryId" IsSmart="True"/>
+            <dxg:GridColumn FieldName="Description" IsSmart="True"/>
+            <dxg:GridColumn FieldName="Date" IsSmart="True"/>
+            <dxg:GridColumn FieldName="Dairy" IsSmart="True"/>
+            <dxg:GridColumn FieldName="Gluten" IsSmart="True"/>
+            <dxg:GridColumn FieldName="Rating" IsSmart="True"/>
+        </dxg:GridControl>
+    </Grid>
+</dx:ThemedWindow>
