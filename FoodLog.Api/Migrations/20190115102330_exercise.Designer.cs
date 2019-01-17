@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodLog.Api.Migrations
 {
     [DbContext(typeof(FoodContext))]
-    [Migration("20190108165802_Initial-Database")]
-    partial class InitialDatabase
+    [Migration("20190115102330_exercise")]
+    partial class exercise
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,16 +23,34 @@ namespace FoodLog.Api.Migrations
                     b.Property<int>("EntryId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Alcohol");
+
+                    b.Property<string>("Breakfast")
+                        .HasMaxLength(200);
+
+                    b.Property<bool>("Caffeine");
+
                     b.Property<bool>("Dairy");
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<string>("Description")
-                        .HasMaxLength(200);
+                    b.Property<string>("Dinner");
+
+                    b.Property<bool>("Exercise");
+
+                    b.Property<bool>("FattyFood");
 
                     b.Property<bool>("Gluten");
 
+                    b.Property<string>("Lunch");
+
+                    b.Property<bool>("OnionsPulses");
+
                     b.Property<int>("Rating");
+
+                    b.Property<string>("SnacksDrinks");
+
+                    b.Property<bool>("Spice");
 
                     b.HasKey("EntryId");
 
