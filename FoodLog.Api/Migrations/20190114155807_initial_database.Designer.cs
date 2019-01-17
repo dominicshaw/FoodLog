@@ -3,14 +3,16 @@ using System;
 using FoodLog.Api.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FoodLog.Api.Migrations
 {
     [DbContext(typeof(FoodContext))]
-    partial class FoodContextModelSnapshot : ModelSnapshot
+    [Migration("20190114155807_initial_database")]
+    partial class initial_database
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,8 +35,6 @@ namespace FoodLog.Api.Migrations
                     b.Property<DateTime>("Date");
 
                     b.Property<string>("Dinner");
-
-                    b.Property<bool>("Exercise");
 
                     b.Property<bool>("FattyFood");
 

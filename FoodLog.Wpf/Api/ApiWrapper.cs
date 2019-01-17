@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using FoodLog.DTOs;
 using FoodLog.Wpf.FoodLogClient;
@@ -23,7 +25,38 @@ namespace FoodLog.Wpf.Api
             if (!response.Response.IsSuccessStatusCode)
                 throw new ApiException(response.Response.StatusCode);
 
-            return response.Body.Select(c => EntryMapper.Map(c, new EntryViewModel())).ToList();
+            return response.Body.Select(c => EntryMapper.Map(c, new EntryViewModel(),e=>e.Updated=false)).ToList();
+        }
+
+        public async Task<HttpResponseMessage> Save(EntryViewModel entryViewModel)
+        {
+            HttpResponseMessage response;
+
+            if (entryViewModel.EntryId == 0)
+            {
+                var x = await _client.PostEntryWithHttpMessagesAsync(EntryMapper.Map(entryViewModel, new EntryDTO()));
+                response = x.Response;
+            }
+            else
+            {
+                var x = await _client.PutEntryWithHttpMessagesAsync(entryViewModel.EntryId, EntryMapper.Map(entryViewModel, new EntryDTO()));
+                response = x.Response;
+            }
+
+            return response;
+        }
+
+        public async Task<HttpResponseMessage> Delete(EntryViewModel entryViewModel)
+        {
+            var response = new HttpResponseMessage();
+
+            if (entryViewModel.EntryId != 0)
+            {
+                var x = await _client.DeleteEntryWithHttpMessagesAsync(entryViewModel.EntryId);
+                response = x.Response;
+            }
+            
+            return response;
         }
     }
 }

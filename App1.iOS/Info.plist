@@ -40,7 +40,7 @@
       <true/>
       <key>NSExceptionDomains</key>
       <dict>
-        <key>lonop009</key>
+        <key>lonit003</key>
         <dict>
           <key>NSExceptionAllowsInsecureHTTPLoads</key>
           <true/>

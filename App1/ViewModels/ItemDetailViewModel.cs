@@ -10,7 +10,7 @@ namespace App1.ViewModels
         public EntryDTO Item { get; set; }
         public ItemDetailViewModel(EntryDTO item = null)
         {
-            Title = item?.Description;
+            Title = item?.Breakfast;
             Item = item;
         }
     }

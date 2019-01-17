@@ -28,7 +28,7 @@ namespace App1.Views
             var item = new EntryDTO
             {
                 Date = DateTime.Now,
-                Description = "This is an item description.",
+                Breakfast = "This is an item description.",
                 Dairy = false,
                 Gluten = true,
                 Rating = 3

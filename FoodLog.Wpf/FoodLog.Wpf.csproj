@@ -35,12 +35,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Images.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DevExpress.Xpf.Core.v18.1" />
     <Reference Include="DevExpress.Data.v18.1" />
     <Reference Include="DevExpress.Printing.v18.1.Core" />
     <Reference Include="DevExpress.Mvvm.v18.1" />
+    <Reference Include="DevExpress.Xpf.Gauges.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Grid.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Grid.v18.1.Core, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.LayoutControl.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Themes.DXStyle.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Themes.Office2016DarkGraySE.v18.1, Version=18.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Themes.Office2016White.v18.1" />
     <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.2\lib\net45\Microsoft.Rest.ClientRuntime.dll</HintPath>
@@ -127,6 +134,29 @@
       <Project>{4081858E-BF5A-4F0F-9946-875EF2289C65}</Project>
       <Name>FoodLog.DTOs</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\cow-checked.png" />
+    <Resource Include="Images\cow-unchecked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\alcohol-checked.png" />
+    <Resource Include="Images\alcohol-unchecked.png" />
+    <Resource Include="Images\caffeine-checked.png" />
+    <Resource Include="Images\caffeine-unchecked.png" />
+    <Resource Include="Images\exercise-checked.png" />
+    <Resource Include="Images\exercise-unchecked.png" />
+    <Resource Include="Images\fatty-checked.png" />
+    <Resource Include="Images\fatty-unchecked.png" />
+    <Resource Include="Images\gluten-checked.png" />
+    <Resource Include="Images\gluten-unchecked.png" />
+    <Resource Include="Images\onion-checked.png" />
+    <Resource Include="Images\onion-unchecked.png" />
+    <Resource Include="Images\spice-checked.png" />
+    <Resource Include="Images\spice-unchecked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\meal.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
