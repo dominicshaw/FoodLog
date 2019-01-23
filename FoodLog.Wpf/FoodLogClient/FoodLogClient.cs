@@ -222,7 +222,7 @@ namespace FoodLog.Wpf.FoodLogClient
         /// </summary>
         private void Initialize()
         {
-            this.BaseUri = new Uri("http://localhost:52617");
+            this.BaseUri = new Uri("http://lonhapp02:5000");
             SerializationSettings = new JsonSerializerSettings
             {
                 Formatting = Formatting.Indented,

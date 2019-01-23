@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodLog.Api", "FoodLog.Api\FoodLog.Api.csproj", "{7AF00792-E136-45CF-BEE2-4F2BB9DE2837}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodLog.Api", "FoodLog.Api\FoodLog.Api.csproj", "{7AF00792-E136-45CF-BEE2-4F2BB9DE2837}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodLog.Wpf", "FoodLog.Wpf\FoodLog.Wpf.csproj", "{6A245042-29F6-4C37-9E77-E7FED0B0B372}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodLog.DTOs", "FoodLog.DTOs\FoodLog.DTOs.csproj", "{4081858E-BF5A-4F0F-9946-875EF2289C65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodLog.DTOs", "FoodLog.DTOs\FoodLog.DTOs.csproj", "{4081858E-BF5A-4F0F-9946-875EF2289C65}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App1", "App1\App1.csproj", "{5AAE8CAF-E066-4C9E-A8B2-C6EB72D9FF2F}"
 EndProject
@@ -141,8 +141,6 @@ Global
 		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.Debug|iPhone.Deploy.0 = Debug|Any CPU
 		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.Debug|iPhoneSimulator.Deploy.0 = Debug|Any CPU
 		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.Debug|x64.Build.0 = Debug|Any CPU
 		{24CE3C36-16B9-426D-AA0C-5961ECF8D88C}.Debug|x64.Deploy.0 = Debug|Any CPU

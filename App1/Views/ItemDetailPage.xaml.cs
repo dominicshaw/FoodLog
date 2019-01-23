@@ -21,21 +21,6 @@ namespace App1.Views
             BindingContext = this.viewModel = viewModel;
         }
 
-        public ItemDetailPage()
-        {
-            InitializeComponent();
-
-            var item = new EntryDTO
-            {
-                Date = DateTime.Now,
-                Breakfast = "This is an item description.",
-                Dairy = false,
-                Gluten = true,
-                Rating = 3
-            };
-
-            viewModel = new ItemDetailViewModel(item);
-            BindingContext = viewModel;
-        }
+        
     }
 }

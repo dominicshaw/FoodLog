@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -41,10 +42,13 @@ namespace App1.ViewModels
             {
                 Items.Clear();
                 var items = await DataStore.GetItemsAsync(true);
+                items = items.OrderByDescending(x => x.Date);
+
                 foreach (var item in items)
                 {
                     Items.Add(item);
-                }
+                }                
+
             }
             catch (Exception ex)
             {

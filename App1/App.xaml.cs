@@ -10,7 +10,7 @@ namespace App1
     public partial class App : Application
     {
         //TODO: Replace with *.azurewebsites.net url after deploying backend to Azure
-        public static string AzureBackendUrl = "http://lonit003:5000";
+        public static string AzureBackendUrl = "http://lonhapp02:5000";
         public static bool UseMockDataStore = true;
 
         public App()

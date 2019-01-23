@@ -6,7 +6,11 @@
     <StackLayout Spacing="20" Padding="15">
         <Label Text="Date:" FontSize="Medium" />
         <Label Text="{Binding Item.Date}" FontSize="Small"/>
-        <Label Text="Description:" FontSize="Medium" />
-        <Label Text="{Binding Item.Description}" FontSize="Small"/>
+        <Label Text="Breakfast:" FontSize="Medium" />
+        <Label Text="{Binding Item.Breakfast}" FontSize="Small"/>
+        <Label Text="Lunch:" FontSize="Medium" />
+        <Label Text="{Binding Item.Lunch}" FontSize="Small"/>
+        <Label Text="Dinner:" FontSize="Medium" />
+        <Label Text="{Binding Item.Dinner}" FontSize="Small"/>
     </StackLayout>
 </ContentPage>

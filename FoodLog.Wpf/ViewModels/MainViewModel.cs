@@ -51,7 +51,17 @@ namespace FoodLog.Wpf.ViewModels
 
         public async Task Start()
         {
-            await Refresh();
+            try
+            {
+                await Refresh();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.InnerException != null ? e.InnerException.Message : e.Message, "Food Diary",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            
             
         }
 
@@ -97,21 +107,24 @@ namespace FoodLog.Wpf.ViewModels
 
         public async Task Save()
         {
-            var updatedEntries = Entries.Where(x => x.Updated);
-
-            foreach (var entry in updatedEntries)
+            try
             {
-                var response = await _api.Save(entry);
+                var updatedEntries = Entries.Where(x => x.Updated);
 
-                if (!response.IsSuccessStatusCode)
+                foreach (var entry in updatedEntries)
                 {
-                    MessageBox.Show(
-                        string.Format("Error saving record {0}{1}{2}{3}", entry, Environment.NewLine,
-                            Environment.NewLine, response.ReasonPhrase), "Save Error", MessageBoxButton.OK,
-                        MessageBoxImage.Error);
-
+                    await _api.Save(entry);
+                    entry.Updated = false;
                 }
             }
+            catch (Exception e)
+            {
+                MessageBox.Show(
+                    string.Format("Error saving record {0}{1}{2}", Environment.NewLine,
+                        Environment.NewLine, e.Message), "Save Error", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+            
         }
 
         public async Task Delete()
