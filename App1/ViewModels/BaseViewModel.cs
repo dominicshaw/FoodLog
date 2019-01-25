@@ -22,8 +22,8 @@ namespace App1.ViewModels
             set { SetProperty(ref isBusy, value); }
         }
 
-        string title = string.Empty;
-        public string Title
+        String title = DateTime.Now.ToLongDateString();
+        public String Title
         {
             get { return title; }
             set { SetProperty(ref title, value); }

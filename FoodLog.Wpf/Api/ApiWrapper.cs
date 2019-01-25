@@ -51,17 +51,18 @@ namespace FoodLog.Wpf.Api
             
         }
 
-        public async Task<HttpResponseMessage> Delete(EntryViewModel entryViewModel)
-        {
-            var response = new HttpResponseMessage();
+        public async Task Delete(EntryViewModel entryViewModel)
+        {            
 
             if (entryViewModel.EntryId != 0)
             {
-                var x = await _client.DeleteEntryWithHttpMessagesAsync(entryViewModel.EntryId);
-                response = x.Response;
+                var response = await _client.DeleteEntryWithHttpMessagesAsync(entryViewModel.EntryId);
+
+                if (!response.Response.IsSuccessStatusCode)
+                    throw new ApiException(response.Response.StatusCode);
             }
             
-            return response;
+            
         }
     }
 }

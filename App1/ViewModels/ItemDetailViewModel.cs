@@ -9,8 +9,9 @@ namespace App1.ViewModels
     {
         public EntryDTO Item { get; set; }
         public ItemDetailViewModel(EntryDTO item = null)
-        {
-            Title = item?.Breakfast;
+        {            
+            Title = item?.Date.ToLongDateString();            
+            
             Item = item;
         }
     }

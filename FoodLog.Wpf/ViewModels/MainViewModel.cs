@@ -129,21 +129,24 @@ namespace FoodLog.Wpf.ViewModels
 
         public async Task Delete()
         {
-            var toDeleteEntries = Entries.Where(x => x.ToDelete);
-
-            foreach (var entry in toDeleteEntries)
+            try
             {
-                var response = await _api.Delete(entry);
+                var toDeleteEntries = Entries.Where(x => x.ToDelete);
 
-                if (!response.IsSuccessStatusCode)
+                foreach (var entry in toDeleteEntries)
                 {
-                    MessageBox.Show(
-                        string.Format("Error deleting record {0}{1}{2}{3}", entry, Environment.NewLine,
-                            Environment.NewLine, response.ReasonPhrase), "Save Error", MessageBoxButton.OK,
-                        MessageBoxImage.Error);
-
+                    await _api.Delete(entry);
                 }
             }
+            catch (Exception e)
+            {
+                MessageBox.Show(
+                    string.Format("Error deleting record {0}{1}{2}", Environment.NewLine,
+                        Environment.NewLine, e.Message), "Delete Error", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+
+            
         }
 
         public void Clear()
