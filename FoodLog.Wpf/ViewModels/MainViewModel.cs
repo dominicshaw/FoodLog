@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using DevExpress.Mvvm;
+using FoodLog.Common;
 using FoodLog.Wpf.Api;
 using FoodLog.Wpf.Properties;
 
@@ -26,7 +27,7 @@ namespace FoodLog.Wpf.ViewModels
             {
                 _selectedEntryViewModel = value;
                 OnPropertyChanged();
-                OnPropertyChanged("EntryDate");
+                OnPropertyChanged(nameof(EntryDate));
             }
         }
         

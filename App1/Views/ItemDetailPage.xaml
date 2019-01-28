@@ -5,6 +5,9 @@
              x:Class="App1.Views.ItemDetailPage"             
              Title="{Binding Title}">
     <StackLayout Spacing="20" Padding="15">
+        
+        <DatePicker Date="{Binding Item.Date}"></DatePicker>
+
         <Label Text="Breakfast:" FontSize="Medium" />
         <Entry Text="{Binding Item.Breakfast}" FontSize="Small"/>
         <Label Text="Lunch:" FontSize="Medium" />

@@ -10,6 +10,7 @@ using Xamarin.Forms.Xaml;
 using App1.Models;
 using App1.Views;
 using App1.ViewModels;
+using FoodLog.Common;
 using FoodLog.DTOs;
 
 namespace App1.Views
@@ -28,7 +29,7 @@ namespace App1.Views
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = args.SelectedItem as EntryDTO;
+            var item = args.SelectedItem as EntryViewModel;
             if (item == null)
                 return;
 

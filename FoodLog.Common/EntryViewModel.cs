@@ -1,9 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using FoodLog.Common.Annotations;
 using FoodLog.DTOs;
 
-namespace FoodLog.Wpf.ViewModels
+namespace FoodLog.Common
 {
-    public class EntryViewModel : IEntry
+    public class EntryViewModel : IEntry, INotifyPropertyChanged
     {
         
         public bool Dairy { get; set; }
@@ -120,6 +123,14 @@ namespace FoodLog.Wpf.ViewModels
         public EntryViewModel()
         {
 
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

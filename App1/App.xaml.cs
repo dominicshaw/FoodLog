@@ -1,8 +1,8 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using App1.Services;
 using App1.Views;
+using FoodLog.Common;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace App1
@@ -17,7 +17,7 @@ namespace App1
         {
             InitializeComponent();
 
-            DependencyService.Register<AzureDataStore>();
+            DependencyService.Register<ApiWrapper>();
 
             MainPage = new MainPage();
         }

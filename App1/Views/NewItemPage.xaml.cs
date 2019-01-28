@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using App1.Models;
+using FoodLog.Common;
 using FoodLog.DTOs;
 
 namespace App1.Views
@@ -12,13 +13,13 @@ namespace App1.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewItemPage : ContentPage
     {
-        public EntryDTO Item { get; set; }
+        public EntryViewModel Item { get; set; }
 
         public NewItemPage()
         {
             InitializeComponent();
 
-            Item = new EntryDTO
+            Item = new EntryViewModel
             {
                 Date = DateTime.Now,
                 Breakfast = "This is an item description.",

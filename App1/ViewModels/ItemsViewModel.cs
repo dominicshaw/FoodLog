@@ -8,26 +8,26 @@ using Xamarin.Forms;
 
 using App1.Models;
 using App1.Views;
+using FoodLog.Common;
 using FoodLog.DTOs;
 
 namespace App1.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        public ObservableCollection<EntryDTO> Items { get; set; }
+        public ObservableCollection<EntryViewModel> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
 
         public ItemsViewModel()
         {
             Title = "Browse";
-            Items = new ObservableCollection<EntryDTO>();
+            Items = new ObservableCollection<EntryViewModel>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            MessagingCenter.Subscribe<NewItemPage, EntryDTO>(this, "AddItem", async (obj, item) =>
-            {
-                var newItem = item as EntryDTO;
-                Items.Add(newItem);
-                await DataStore.AddItemAsync(newItem);
+            MessagingCenter.Subscribe<NewItemPage, EntryViewModel>(this, "AddItem", async (obj, item) =>
+            {                
+                Items.Add(item);
+                await DataStore.Save(item);
             });
         }
 
@@ -41,10 +41,9 @@ namespace App1.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
-                items = items.OrderByDescending(x => x.Date);
+                var items = await DataStore.GetEntries(true);                
 
-                foreach (var item in items)
+                foreach (var item in items.OrderByDescending(x => x.Date))
                 {
                     Items.Add(item);
                 }                

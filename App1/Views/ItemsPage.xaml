@@ -15,6 +15,7 @@
     </ContentPage.ToolbarItems>
 
     <StackLayout>
+        
         <ListView x:Name="ItemsListView"
                 ItemsSource="{Binding Items}"
                 VerticalOptions="FillAndExpand"

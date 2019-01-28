@@ -54,8 +54,8 @@
     <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.2\lib\net45\Microsoft.Rest.ClientRuntime.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -85,12 +85,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Api\ApiException.cs" />
-    <Compile Include="Api\ApiWrapper.cs" />
     <Compile Include="FoodLogClient\FoodLogClient.cs" />
     <Compile Include="FoodLogClient\FoodLogClientExtensions.cs" />
     <Compile Include="FoodLogClient\IFoodLogClient.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="ViewModels\EntryViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -132,6 +130,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FoodLog.Common\FoodLog.Common.csproj">
+      <Project>{7CE5DB85-8A4B-4FF2-BD85-57DAE298837F}</Project>
+      <Name>FoodLog.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FoodLog.DTOs\FoodLog.DTOs.csproj">
       <Project>{4081858E-BF5A-4F0F-9946-875EF2289C65}</Project>
       <Name>FoodLog.DTOs</Name>

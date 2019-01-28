@@ -6,14 +6,14 @@ using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 
 using App1.Models;
-using App1.Services;
+using FoodLog.Common;
 using FoodLog.DTOs;
 
 namespace App1.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<EntryDTO> DataStore => DependencyService.Get<IDataStore<EntryDTO>>();
+        public IApiWrapper DataStore => DependencyService.Get<IApiWrapper>();
 
         bool isBusy = false;
         public bool IsBusy
