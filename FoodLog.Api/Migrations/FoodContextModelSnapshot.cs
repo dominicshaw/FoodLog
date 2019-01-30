@@ -3,7 +3,6 @@ using System;
 using FoodLog.Api.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FoodLog.Api.Migrations
 {

@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Globalization;
+using System.Windows;
 using DevExpress.Xpf.Core;
-using DevExpress.Xpf.Editors;
 using FoodLog.Common;
 using MainViewModel = FoodLog.Common.MainViewModel;
 
@@ -19,6 +18,10 @@ namespace FoodLog.Wpf
             _model = model;
             InitializeComponent();
 
+            Messenger.Instance.Register<Notification>("Notification", DisplayMessage);
+
+            Messenger.Instance.Register<Exception>("Exception", DisplayException);
+
             DataContext = _model;
 
             Loaded += MainWindow_Loaded;
@@ -26,8 +29,24 @@ namespace FoodLog.Wpf
         
         private async void MainWindow_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            await _model.Start();
+            try
+            {
+                await _model.Start();
+            }
+            catch (Exception ex)
+            {
+                DisplayException(ex);
+            }
         }
 
+        private void DisplayMessage(Notification notification)
+        {
+            DXMessageBox.Show(notification.Message, notification.Title, MessageBoxButton.OK, MessageBoxImage.Information);            
+        }
+
+        private void DisplayException(Exception exception)
+        {
+            DXMessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 }

@@ -85,9 +85,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Api\ApiException.cs" />
-    <Compile Include="FoodLogClient\FoodLogClient.cs" />
-    <Compile Include="FoodLogClient\FoodLogClientExtensions.cs" />
-    <Compile Include="FoodLogClient\IFoodLogClient.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

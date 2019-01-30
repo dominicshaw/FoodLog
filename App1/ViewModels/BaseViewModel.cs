@@ -4,10 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 using Xamarin.Forms;
-
-using App1.Models;
 using FoodLog.Common;
-using FoodLog.DTOs;
 
 namespace App1.ViewModels
 {
@@ -41,6 +38,8 @@ namespace App1.ViewModels
             OnPropertyChanged(propertyName);
             return true;
         }
+ 
+
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

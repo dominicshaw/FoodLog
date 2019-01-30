@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using FoodLog.Common.Annotations;
 
@@ -20,7 +19,7 @@ namespace FoodLog.Common
         private EntryViewModel _selectedEntryViewModel;
         public EntryViewModel SelectedEntryViewModel
         {
-            get { return _selectedEntryViewModel;}
+            get { return _selectedEntryViewModel; }
             set
             {
                 _selectedEntryViewModel = value;
@@ -28,7 +27,7 @@ namespace FoodLog.Common
                 OnPropertyChanged(nameof(EntryDate));
             }
         }
-        
+
         public DateTime EntryDate
         {
             get => _selectedEntryViewModel?.Date ?? DateTime.Now.Date;
@@ -51,14 +50,7 @@ namespace FoodLog.Common
 
         public async Task Start()
         {
-            try
-            {
-                await Refresh();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            await Refresh();
         }
 
         public void AddNew()
@@ -67,7 +59,7 @@ namespace FoodLog.Common
         }
         public void Forward()
         {
-            GoToDate(SelectedEntryViewModel.Date.AddDays(1));                               
+            GoToDate(SelectedEntryViewModel.Date.AddDays(1));
         }
 
         public void Back()
@@ -94,14 +86,21 @@ namespace FoodLog.Common
 
         public async Task Refresh()
         {
-            Entries.Clear();
-
-            foreach (var e in await _api.GetEntries())
-                Entries.Add(e);
-
-            if (Entries.Count > 0)
+            try
             {
-                SelectedEntryViewModel = Entries.OrderByDescending(x => x.Date).First();
+                Entries.Clear();
+
+                foreach (var e in await _api.GetEntries())
+                    Entries.Add(e);
+
+                if (Entries.Count > 0)
+                {
+                    SelectedEntryViewModel = Entries.OrderByDescending(x => x.Date).First();
+                }
+            }
+            catch (Exception e)
+            {
+                Messenger.Instance.NotifyColleagues("Exception", e);
             }
         }
 
@@ -109,6 +108,8 @@ namespace FoodLog.Common
         {
             try
             {
+
+
                 var updatedEntries = Entries.Where(x => x.Updated).ToList();
 
                 foreach (var entry in updatedEntries)
@@ -119,12 +120,16 @@ namespace FoodLog.Common
                     if (!Entries.Contains(SelectedEntryViewModel))
                         Entries.Add(SelectedEntryViewModel);
                 }
+
+                var message = string.Format("{0} {1} updated", updatedEntries.Count, updatedEntries.Count == 1 ? "entry" : "entries");
+
+                Messenger.Instance.NotifyColleagues("Notification", new Notification("Save", message));
             }
             catch (Exception e)
             {
-                throw e;
+                Messenger.Instance.NotifyColleagues("Exception", e);
             }
-            
+
         }
 
         public async Task Delete()
@@ -140,10 +145,10 @@ namespace FoodLog.Common
             }
             catch (Exception e)
             {
-                throw e;
+                Messenger.Instance.NotifyColleagues("Exception", e);
             }
 
-            
+
         }
 
         public void Clear()

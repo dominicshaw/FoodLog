@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
+using App1.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
-using App1.Models;
-using App1.Views;
-using App1.ViewModels;
 using FoodLog.Common;
-using FoodLog.DTOs;
 
 namespace App1.Views
 {
@@ -23,6 +15,13 @@ namespace App1.Views
         public ItemsPage()
         {
             InitializeComponent();
+
+            Messenger.Instance.Register<Notification>("Notification", async n =>
+            {
+                await DisplayMessage(n);
+            });
+
+            Messenger.Instance.Register<Exception>("Exception", async ex => { await DisplayException(ex);});
 
             BindingContext = _viewModel = new MainViewModel(new ApiWrapper());
         }
@@ -38,18 +37,34 @@ namespace App1.Views
         //    // Manually deselect item.
         //    ItemsListView.SelectedItem = null;
         //}
-
-        async void AddItem_Clicked(object sender, EventArgs e)
+        
+        private async Task DisplayMessage(Notification notification)
         {
-            await Navigation.PushModalAsync(new NavigationPage(new NewItemPage()));
+            if (string.IsNullOrEmpty(notification.Cancel))
+                await DisplayAlert(notification.Title, notification.Message, notification.Accept);
+            else
+                await DisplayAlert(notification.Title, notification.Message, notification.Accept, notification.Cancel);
+
+        }
+
+        private async Task DisplayException(Exception exception)
+        {            
+            await DisplayAlert("Error", exception.Message, "OK");            
         }
 
         protected override async void OnAppearing()
         {
-            base.OnAppearing();
+            try
+            {
+                base.OnAppearing();
 
-            //if (_viewModel.Entries.Count == 0)
+                //if (_viewModel.Entries.Count == 0)
                 await _viewModel.Start();
+            }
+            catch (Exception ex)
+            {
+                Reporter.ReportException(ex);
+            }
         }
     }
 }

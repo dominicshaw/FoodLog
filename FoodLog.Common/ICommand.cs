@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FoodLog.Common
+﻿namespace FoodLog.Common
 {
     //public interface ICommand
     //{

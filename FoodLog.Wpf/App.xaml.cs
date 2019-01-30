@@ -1,7 +1,5 @@
 ﻿using System.Windows;
 using FoodLog.Common;
-using FoodLog.Wpf.Api;
-using Microsoft.Rest;
 using MainViewModel = FoodLog.Common.MainViewModel;
 
 namespace FoodLog.Wpf
