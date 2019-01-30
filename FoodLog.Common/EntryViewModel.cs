@@ -6,29 +6,32 @@ using FoodLog.DTOs;
 
 namespace FoodLog.Common
 {
-    public class EntryViewModel : IEntry, INotifyPropertyChanged
+    public class EntryViewModel : IEntry
     {
         
         public bool Dairy { get; set; }
         public DateTime Date { get; set; }        
         public string DateString => Date.ToLongDateString();
 
-        private string _breakfast;
+
         public string Breakfast
         {
             get => _breakfast;
             set
             {
+                if (value == _breakfast) return;
                 _breakfast = value;
-                Updated = true;
+                Updated = true;                
             }
         }
+
         private string _lunch;
         public string Lunch
         {
             get => _lunch;
             set
             {
+                if (value == _lunch) return;
                 _lunch = value;
                 Updated = true;
             }
@@ -39,6 +42,7 @@ namespace FoodLog.Common
             get => _dinner;
             set
             {
+                if (value == _dinner) return;
                 _dinner = value;
                 Updated = true;
             }
@@ -49,6 +53,7 @@ namespace FoodLog.Common
             get => _snacksDrinks;
             set
             {
+                if (value == _snacksDrinks) return;
                 _snacksDrinks = value;
                 Updated = true;
             }
@@ -56,14 +61,20 @@ namespace FoodLog.Common
 
         private bool _gluten;
         public bool Gluten { get => _gluten;
-            set { _gluten = value;
+            set
+            {
+                if (value == _gluten) return;
+                _gluten = value;
                 Updated = true;
             }
         }
         public int EntryId { get; set; }
         private int _rating;
         public int Rating { get => _rating;
-            set { _rating = value;
+            set
+            {
+                if (value == _rating) return;
+                _rating = value;
                 Updated = true;
             }
         }
@@ -71,42 +82,62 @@ namespace FoodLog.Common
         public bool ToDelete { get; set; }
         private bool _alcohol;
         public bool Alcohol { get => _alcohol;
-            set { _alcohol = value;
+            set
+            {
+                if (value == _alcohol) return;
+                _alcohol = value;
                 Updated = true;
             }
         }
 
         private bool _caffeine;
         public bool Caffeine { get => _caffeine;
-            set { _caffeine = value;
+            set
+            {
+                if (value == _caffeine) return;
+                _caffeine = value;
                 Updated = true;
             }
         }
 
         private bool _fattyFood;
         public bool FattyFood { get => _fattyFood;
-            set { _fattyFood = value;
+            set
+            {
+                if (value == _fattyFood) return;
+                _fattyFood = value;
                 Updated = true;
             }
         }
 
         private bool _spice;
         public bool Spice { get => _spice;
-            set { _spice = value;
+            set
+            {
+                if (value == _spice) return;
+                _spice = value;
                 Updated = true;
             }
         }
 
         private bool _onionsPulses;
         public bool OnionsPulses { get => _onionsPulses;
-            set { _onionsPulses = value;
+            set
+            {
+                if (value == _onionsPulses) return;
+                _onionsPulses = value;
                 Updated = true;
             }
         }
 
         private bool _exercise;
+        private string _breakfast;
+
         public bool Exercise { get => _exercise;
-            set { _exercise = value;
+            set
+            {
+                if (value == _exercise) return;
+                _exercise = value;
                 Updated = true;
             }
         }
@@ -125,12 +156,6 @@ namespace FoodLog.Common
 
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
 
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

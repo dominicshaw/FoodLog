@@ -18,38 +18,38 @@ namespace App1.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ItemsPage : ContentPage
     {
-        ItemsViewModel viewModel;
+        readonly MainViewModel _viewModel;
 
         public ItemsPage()
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new ItemsViewModel();
+            BindingContext = _viewModel = new MainViewModel(new ApiWrapper());
         }
 
-        async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
-        {
-            var item = args.SelectedItem as EntryViewModel;
-            if (item == null)
-                return;
+        //async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
+        //{
+        //    var item = args.SelectedItem as EntryViewModel;
+        //    if (item == null)
+        //        return;
 
-            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
+        //    await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
 
-            // Manually deselect item.
-            ItemsListView.SelectedItem = null;
-        }
+        //    // Manually deselect item.
+        //    ItemsListView.SelectedItem = null;
+        //}
 
         async void AddItem_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new NavigationPage(new NewItemPage()));
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
 
-            if (viewModel.Items.Count == 0)
-                viewModel.LoadItemsCommand.Execute(null);
+            //if (_viewModel.Entries.Count == 0)
+                await _viewModel.Start();
         }
     }
 }

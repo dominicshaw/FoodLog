@@ -10,6 +10,7 @@ using App1.Models;
 using App1.Views;
 using FoodLog.Common;
 using FoodLog.DTOs;
+using Command = FoodLog.Common.Command;
 
 namespace App1.ViewModels
 {

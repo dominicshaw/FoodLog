@@ -89,7 +89,6 @@
     <Compile Include="FoodLogClient\FoodLogClientExtensions.cs" />
     <Compile Include="FoodLogClient\IFoodLogClient.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -161,6 +160,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\meal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

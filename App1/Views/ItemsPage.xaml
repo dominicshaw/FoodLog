@@ -1,46 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:App1.Helpers;assembly=App1"
+             xmlns:views="clr-namespace:App1.Views;assembly=App1"
              x:Class="App1.Views.ItemsPage"
               Title="{Binding Title}"
              x:Name="BrowseItemsPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Clicked="AddItem_Clicked">
+        <ToolbarItem Text="Add" Command="{Binding AddCommand}">
             <ToolbarItem.Icon>
                 <OnPlatform x:TypeArguments="FileImageSource">
                     <On Platform="UWP" Value="add.png"/>
                 </OnPlatform>
             </ToolbarItem.Icon>
         </ToolbarItem>
+        <ToolbarItem Text="Save" Command="{Binding SaveCommand}">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP" Value="save.png"/>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
     </ContentPage.ToolbarItems>
 
-    <StackLayout>
-        
-        <ListView x:Name="ItemsListView"
-                ItemsSource="{Binding Items}"
-                VerticalOptions="FillAndExpand"
-                HasUnevenRows="true"
-                RefreshCommand="{Binding LoadItemsCommand}"
-                IsPullToRefreshEnabled="true"
-                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                CachingStrategy="RecycleElement"
-                ItemSelected="OnItemSelected">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Padding="10">
-                            <Label Text="{Binding Date}" 
-                                LineBreakMode="NoWrap" 
-                                Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="16" />
-                            <Label Text="{Binding Breakfast}" 
-                                LineBreakMode="NoWrap"
-                                Style="{DynamicResource ListItemDetailTextStyle}"
-                                FontSize="13" />
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+    <StackLayout Spacing="20" Padding="15">
+
+        <DatePicker Date="{Binding EntryDate}" Format="D"></DatePicker>
+        <views:EntryCellView BindingContext="{Binding SelectedEntryViewModel, Mode=TwoWay}" />
+        <!--<views:SwitchCellView BindingContext="{Binding SelectedEntryViewModel, Mode=TwoWay}" />-->
+        <views:StepperView BindingContext="{Binding SelectedEntryViewModel, Mode=TwoWay}" />
+
     </StackLayout>
 </ContentPage>

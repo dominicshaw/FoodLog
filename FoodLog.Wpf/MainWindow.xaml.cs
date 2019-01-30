@@ -2,7 +2,8 @@
 using System.Globalization;
 using DevExpress.Xpf.Core;
 using DevExpress.Xpf.Editors;
-using FoodLog.Wpf.ViewModels;
+using FoodLog.Common;
+using MainViewModel = FoodLog.Common.MainViewModel;
 
 namespace FoodLog.Wpf
 {

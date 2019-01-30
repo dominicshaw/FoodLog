@@ -9,7 +9,7 @@
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
                 <Setter Property="BarTextColor" Value="White" />
-            </Style>
+            </Style>          
         </ResourceDictionary>
     </Application.Resources>
 </Application>
