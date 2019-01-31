@@ -1,7 +1,9 @@
 ﻿using FoodLog.Common.Annotations;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -16,6 +18,8 @@ namespace FoodLog.Common
         public ObservableCollection<EntryViewModel> Entries { get; } = new ObservableCollection<EntryViewModel>();
 
         private EntryViewModel _selectedEntryViewModel;
+        private DateTime _entryDate = DateTime.Now.Date;
+
         public EntryViewModel SelectedEntryViewModel
         {
             get { return _selectedEntryViewModel; }
@@ -29,13 +33,18 @@ namespace FoodLog.Common
 
         public DateTime EntryDate
         {
-            get => _selectedEntryViewModel?.Date ?? DateTime.Now.Date;
-
-            set => GoToDate(value);
+            get => _entryDate;
+            set
+            {
+                if (value.Equals(_entryDate)) return;
+                _entryDate = value;
+                OnPropertyChanged();
+            }
         }
 
         public ICommand SaveCommand => new AsyncCommand(Save);
         public ICommand RefreshCommand => new AsyncCommand(Refresh);
+        public ICommand GoToDateCommand => new Command<DateTime>(GoToDate);
         public ICommand ForwardCommand => new Command(Forward);
         public ICommand BackCommand => new Command(Back);
         public ICommand ClearCommand => new Command(Clear);
@@ -49,25 +58,28 @@ namespace FoodLog.Common
 
         public async Task Start()
         {
-            await Refresh();
+            Messenger.Instance.NotifyColleagues("Log", new LogEvent("Starting MainViewModel...", new Dictionary<string, string>()));
+           await Refresh();
         }
 
-        public void AddNew()
+        private void AddNew()
         {
             GoToDate(Entries.OrderByDescending(x => x.Date).First().Date.AddDays(1));
         }
-        public void Forward()
+
+        private void Forward()
         {
             GoToDate(SelectedEntryViewModel.Date.AddDays(1));
         }
 
-        public void Back()
+        private void Back()
         {
             GoToDate(SelectedEntryViewModel.Date.AddDays(-1));
         }
 
-        public void GoToDate(DateTime dt)
+        private void GoToDate(DateTime dt)
         {
+            Messenger.Instance.NotifyColleagues("Log", new LogEvent("Running Go-To-Date...", new Dictionary<string, string> {{"Date", dt.ToString(CultureInfo.InvariantCulture)}}));
             var shortDate = dt.Date;
 
             var entry = Entries.FirstOrDefault(x => DateTime.Compare(x.Date.Date, shortDate) == 0);
@@ -85,6 +97,7 @@ namespace FoodLog.Common
 
         private async Task Refresh()
         {
+            Messenger.Instance.NotifyColleagues("Log", new LogEvent("Running Refresh...", new Dictionary<string, string> { { "Date", EntryDate.ToString(CultureInfo.InvariantCulture) } }));
             try
             {
                 Entries.Clear();
@@ -93,7 +106,10 @@ namespace FoodLog.Common
                     Entries.Add(e);
 
                 if (Entries.Count > 0)
+                {
                     SelectedEntryViewModel = Entries.OrderByDescending(x => x.Date).First();
+                    EntryDate = SelectedEntryViewModel.Date;
+                }
             }
             catch (Exception e)
             {
@@ -105,8 +121,6 @@ namespace FoodLog.Common
         {
             try
             {
-
-
                 var updatedEntries = Entries.Where(x => x.Updated).ToList();
 
                 foreach (var entry in updatedEntries)
@@ -144,14 +158,11 @@ namespace FoodLog.Common
             {
                 Messenger.Instance.NotifyColleagues("Exception", e);
             }
-
-
         }
 
         private void Clear()
         {
             SelectedEntryViewModel = new EntryViewModel(SelectedEntryViewModel.Date);
-
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -85,9 +85,13 @@ namespace FoodLog.Common
         {
             try
             {
+                Messenger.Instance.NotifyColleagues("Log", new LogEvent("Waiting for Get...", new Dictionary<string, string> {{"Uri", uri}}));
                 await _lock.WaitAsync(token);
+                Messenger.Instance.NotifyColleagues("Log", new LogEvent("Running Get...", new Dictionary<string, string> { { "Uri", uri } }));
 
                 var response = await _client.GetAsync(uri, token);
+
+                Messenger.Instance.NotifyColleagues("Log", new LogEvent("Get Responded...", new Dictionary<string, string> { { "Uri", uri } }));
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -102,6 +106,7 @@ namespace FoodLog.Common
             finally
             {
                 _lock.Release();
+                Messenger.Instance.NotifyColleagues("Log", new LogEvent("Get Unlocked...", new Dictionary<string, string> { { "Uri", uri } }));
             }
         }
 
