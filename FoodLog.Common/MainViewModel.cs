@@ -1,18 +1,17 @@
-﻿using System;
+﻿using FoodLog.Common.Annotations;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using FoodLog.Common.Annotations;
-
 
 namespace FoodLog.Common
 {
     public sealed class MainViewModel : INotifyPropertyChanged
     {
-        private readonly ApiWrapper _api;
+        private readonly IApiWrapper _api;
 
         public ObservableCollection<EntryViewModel> Entries { get; } = new ObservableCollection<EntryViewModel>();
 
@@ -43,7 +42,7 @@ namespace FoodLog.Common
         public ICommand AddCommand => new Command(AddNew);
         public ICommand DeleteCommand => new AsyncCommand(Delete);
 
-        public MainViewModel(ApiWrapper api)
+        public MainViewModel(IApiWrapper api)
         {
             _api = api;
         }
@@ -94,9 +93,7 @@ namespace FoodLog.Common
                     Entries.Add(e);
 
                 if (Entries.Count > 0)
-                {
                     SelectedEntryViewModel = Entries.OrderByDescending(x => x.Date).First();
-                }
             }
             catch (Exception e)
             {
