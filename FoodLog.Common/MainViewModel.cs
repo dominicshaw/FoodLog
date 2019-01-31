@@ -10,7 +10,7 @@ using FoodLog.Common.Annotations;
 
 namespace FoodLog.Common
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public sealed class MainViewModel : INotifyPropertyChanged
     {
         private readonly ApiWrapper _api;
 
@@ -84,7 +84,7 @@ namespace FoodLog.Common
             }
         }
 
-        public async Task Refresh()
+        private async Task Refresh()
         {
             try
             {
@@ -104,7 +104,7 @@ namespace FoodLog.Common
             }
         }
 
-        public async Task Save()
+        private async Task Save()
         {
             try
             {
@@ -132,7 +132,7 @@ namespace FoodLog.Common
 
         }
 
-        public async Task Delete()
+        private async Task Delete()
         {
             try
             {
@@ -151,7 +151,7 @@ namespace FoodLog.Common
 
         }
 
-        public void Clear()
+        private void Clear()
         {
             SelectedEntryViewModel = new EntryViewModel(SelectedEntryViewModel.Date);
 
@@ -160,7 +160,7 @@ namespace FoodLog.Common
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

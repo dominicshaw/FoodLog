@@ -15,7 +15,7 @@ namespace FoodLog.Common
     {
         private static readonly HttpClient _client = new HttpClient();
 
-        private const string _server = "http://lonhapp02.ttint.com:5000";
+        private const string _server = "http://172.16.1.24:5000";
 
         List<EntryViewModel> items;
 
