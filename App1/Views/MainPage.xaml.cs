@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using FoodLog.Common;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -18,6 +19,13 @@ namespace App1.Views
             MasterBehavior = MasterBehavior.Popover;
 
             MenuPages.Add((int)MenuItemType.Browse, (NavigationPage)Detail);
+
+            Messenger.Instance.Register<Exception>("Exception", async ex => { await DisplayException(ex); });
+        }
+
+        private async Task DisplayException(Exception exception)
+        {
+            await DisplayAlert("Error", exception.Message, "Ok");
         }
 
         public async Task NavigateFromMenu(int id)

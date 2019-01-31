@@ -10,11 +10,42 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />  
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <Compile Remove="ViewModels\ItemDetailViewModel.cs" />
+    <Compile Remove="ViewModels\ItemsViewModel.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AppCenter" Version="1.13.0" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="1.13.0" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.13.0" />
+    <PackageReference Include="Microsoft.AppCenter.Distribute" Version="1.13.0" />
+    <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />  
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FoodLog.Common\FoodLog.Common.csproj" />
     <ProjectReference Include="..\FoodLog.DTOs\FoodLog.DTOs.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.AppCenter">
+      <HintPath>..\..\Users\twinn_a\.nuget\packages\microsoft.appcenter\1.13.0\lib\Xamarin.iOS10\Microsoft.AppCenter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AppCenter.Analytics">
+      <HintPath>..\..\Users\twinn_a\.nuget\packages\microsoft.appcenter.analytics\1.13.0\lib\Xamarin.iOS10\Microsoft.AppCenter.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AppCenter.Crashes">
+      <HintPath>..\..\Users\twinn_a\.nuget\packages\microsoft.appcenter.crashes\1.13.0\lib\MonoAndroid403\Microsoft.AppCenter.Crashes.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\EntryCellView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\StepperView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

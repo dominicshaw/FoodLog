@@ -4,15 +4,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
-using DevExpress.Mvvm;
-using FoodLog.Common;
-using FoodLog.Wpf.Api;
-using FoodLog.Wpf.Properties;
-using ICommand = System.Windows.Input.ICommand;
+using FoodLog.Common.Annotations;
 
-namespace FoodLog.Wpf.ViewModels
+
+namespace FoodLog.Common
 {
     public class MainViewModel : INotifyPropertyChanged
     {
@@ -23,7 +19,7 @@ namespace FoodLog.Wpf.ViewModels
         private EntryViewModel _selectedEntryViewModel;
         public EntryViewModel SelectedEntryViewModel
         {
-            get { return _selectedEntryViewModel;}
+            get { return _selectedEntryViewModel; }
             set
             {
                 _selectedEntryViewModel = value;
@@ -31,7 +27,7 @@ namespace FoodLog.Wpf.ViewModels
                 OnPropertyChanged(nameof(EntryDate));
             }
         }
-        
+
         public DateTime EntryDate
         {
             get => _selectedEntryViewModel?.Date ?? DateTime.Now.Date;
@@ -39,12 +35,13 @@ namespace FoodLog.Wpf.ViewModels
             set => GoToDate(value);
         }
 
-        public  ICommand SaveCommand => new DevExpress.Mvvm.AsyncCommand(Save);
-        public ICommand RefreshCommand => new DevExpress.Mvvm.AsyncCommand(Refresh);
-        public DelegateCommand ForwardCommand => new DelegateCommand(Forward);
-        public DelegateCommand BackCommand => new DelegateCommand(Back);
-        public DelegateCommand ClearCommand => new DelegateCommand(Clear);
-        public ICommand DeleteCommand => new DevExpress.Mvvm.AsyncCommand(Delete);
+        public ICommand SaveCommand => new AsyncCommand(Save);
+        public ICommand RefreshCommand => new AsyncCommand(Refresh);
+        public ICommand ForwardCommand => new Command(Forward);
+        public ICommand BackCommand => new Command(Back);
+        public ICommand ClearCommand => new Command(Clear);
+        public ICommand AddCommand => new Command(AddNew);
+        public ICommand DeleteCommand => new AsyncCommand(Delete);
 
         public MainViewModel(ApiWrapper api)
         {
@@ -53,23 +50,16 @@ namespace FoodLog.Wpf.ViewModels
 
         public async Task Start()
         {
-            try
-            {
-                await Refresh();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.InnerException != null ? e.InnerException.Message : e.Message, "Food Diary",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            
-            
+            await Refresh();
         }
 
+        public void AddNew()
+        {
+            GoToDate(Entries.OrderByDescending(x => x.Date).First().Date.AddDays(1));
+        }
         public void Forward()
         {
-            GoToDate(SelectedEntryViewModel.Date.AddDays(1));                               
+            GoToDate(SelectedEntryViewModel.Date.AddDays(1));
         }
 
         public void Back()
@@ -96,14 +86,21 @@ namespace FoodLog.Wpf.ViewModels
 
         public async Task Refresh()
         {
-            Entries.Clear();
-
-            foreach (var e in await _api.GetEntries())
-                Entries.Add(e);
-
-            if (Entries.Count > 0)
+            try
             {
-                SelectedEntryViewModel = Entries.OrderByDescending(x => x.Date).First();
+                Entries.Clear();
+
+                foreach (var e in await _api.GetEntries())
+                    Entries.Add(e);
+
+                if (Entries.Count > 0)
+                {
+                    SelectedEntryViewModel = Entries.OrderByDescending(x => x.Date).First();
+                }
+            }
+            catch (Exception e)
+            {
+                Messenger.Instance.NotifyColleagues("Exception", e);
             }
         }
 
@@ -111,22 +108,28 @@ namespace FoodLog.Wpf.ViewModels
         {
             try
             {
-                var updatedEntries = Entries.Where(x => x.Updated);
+
+
+                var updatedEntries = Entries.Where(x => x.Updated).ToList();
 
                 foreach (var entry in updatedEntries)
                 {
                     await _api.Save(entry);
                     entry.Updated = false;
+
+                    if (!Entries.Contains(SelectedEntryViewModel))
+                        Entries.Add(SelectedEntryViewModel);
                 }
+
+                var message = string.Format("{0} {1} updated", updatedEntries.Count, updatedEntries.Count == 1 ? "entry" : "entries");
+
+                Messenger.Instance.NotifyColleagues("Notification", new Notification("Save", message));
             }
             catch (Exception e)
             {
-                MessageBox.Show(
-                    string.Format("Error saving record {0}{1}{2}", Environment.NewLine,
-                        Environment.NewLine, e.Message), "Save Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                Messenger.Instance.NotifyColleagues("Exception", e);
             }
-            
+
         }
 
         public async Task Delete()
@@ -142,13 +145,10 @@ namespace FoodLog.Wpf.ViewModels
             }
             catch (Exception e)
             {
-                MessageBox.Show(
-                    string.Format("Error deleting record {0}{1}{2}", Environment.NewLine,
-                        Environment.NewLine, e.Message), "Delete Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                Messenger.Instance.NotifyColleagues("Exception", e);
             }
 
-            
+
         }
 
         public void Clear()

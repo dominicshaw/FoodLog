@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using App1.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using App1.Services;
 using App1.Views;
+using FoodLog.Common;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace App1
@@ -10,21 +15,37 @@ namespace App1
     public partial class App : Application
     {
         //TODO: Replace with *.azurewebsites.net url after deploying backend to Azure
-        public static string AzureBackendUrl = "http://lonit003:5000";
+        public static string AzureBackendUrl = "http://lonhapp02:5000";
         public static bool UseMockDataStore = true;
 
         public App()
         {
             InitializeComponent();
 
-            DependencyService.Register<AzureDataStore>();
+            DependencyService.Register<ApiWrapper>();
+
+            AppCenter.Start("android=30c09476-8233-4db3-b375-d0a8323afce5;ios=f1be0ead-b517-4c95-b61a-8fa51d079d41;",
+                typeof(Analytics), typeof(Crashes));
+
+            Messenger.Instance.Register<Exception>("Exception", ex => { Reporter.ReportException(ex); });
 
             MainPage = new MainPage();
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
-            // Handle when your app starts
+            try
+            {
+                if (await Crashes.HasCrashedInLastSessionAsync())
+                {
+                    var crashReport = await Crashes.GetLastSessionCrashReportAsync();
+                    Reporter.ReportException(crashReport.Exception ?? new Exception("Crash from last run; no exception info."), new Dictionary<string, string> { { "Source", "AppCrash" } });
+                }
+            }
+            catch
+            {
+                // ignored
+            }
         }
 
         protected override void OnSleep()

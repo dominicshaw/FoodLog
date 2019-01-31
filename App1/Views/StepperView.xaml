@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.Views.StepperView">
+  <ContentView.Content>
+      <StackLayout Orientation="Vertical" HorizontalOptions="Center">
+          <Label Text="{Binding Source={x:Reference Stepper}, Path=Value, StringFormat='Wellness Rating: {0:F0}*'}"></Label>
+          <Stepper x:Name="Stepper" Maximum="5" Minimum="1" Increment="1" Value="{Binding Rating}" HorizontalOptions="Center"></Stepper>
+      </StackLayout>
+</ContentView.Content>
+</ContentView>

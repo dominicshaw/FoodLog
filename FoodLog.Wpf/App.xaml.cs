@@ -1,7 +1,6 @@
 ﻿using System.Windows;
-using FoodLog.Wpf.Api;
-using FoodLog.Wpf.ViewModels;
-using Microsoft.Rest;
+using FoodLog.Common;
+using MainViewModel = FoodLog.Common.MainViewModel;
 
 namespace FoodLog.Wpf
 {
@@ -14,7 +13,7 @@ namespace FoodLog.Wpf
         {
             base.OnStartup(e);
 
-            MainWindow = new MainWindow(new MainViewModel(new ApiWrapper(new FoodLogClient.FoodLogClient(new BasicAuthenticationCredentials()))));
+            MainWindow = new MainWindow(new MainViewModel(new ApiWrapper()));
             MainWindow.Show();
         }
     }

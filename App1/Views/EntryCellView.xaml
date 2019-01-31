@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App1.Views.EntryCellView">
+  <ContentView.Content>
+      <TableView Intent="Data">
+          <TableRoot>
+              <TableSection Title ="Meals">
+                  <EntryCell Text="{Binding Breakfast}" Label="Breakfast"></EntryCell>
+                  <EntryCell Text="{Binding Lunch}" Label="Lunch"/>
+                  <EntryCell Text="{Binding Dinner}" Label="Dinner"/>
+                  <EntryCell Text="{Binding SnacksDrinks}" Label="Snacks/Drinks"/>
+              </TableSection>
+              <TableSection Title="Food Flags">
+                  <SwitchCell Text="Dairy" On="{Binding Dairy}"></SwitchCell>
+                  <SwitchCell Text="Gluten" On="{Binding Gluten}"></SwitchCell>
+                  <SwitchCell Text="Fatty" On="{Binding Fatty}"></SwitchCell>
+                  <SwitchCell Text="Spicy" On="{Binding Spice}"></SwitchCell>
+                  <SwitchCell Text="Onions/Pulses" On="{Binding OnionsPulses}"></SwitchCell>
+                  <SwitchCell Text="Exercise" On="{Binding Exercise}"></SwitchCell>
+                  <SwitchCell Text="Alcohol" On="{Binding Alcohol}"></SwitchCell>
+                  <SwitchCell Text="Caffeine" On="{Binding Caffeine}"></SwitchCell>
+              </TableSection>
+            </TableRoot>
+      </TableView>
+    </ContentView.Content>
+</ContentView>

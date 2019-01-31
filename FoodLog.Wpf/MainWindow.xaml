@@ -4,14 +4,14 @@
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
         xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"        
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewModels="clr-namespace:FoodLog.Wpf.ViewModels"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"        
         xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:common="clr-namespace:FoodLog.Common;assembly=FoodLog.Common"
         x:Class="FoodLog.Wpf.MainWindow"
                  mc:Ignorable="d"
-                 Title="Food Diary" Height="510" Width="550" d:DataContext="{d:DesignInstance {x:Type viewModels:MainViewModel}}" Icon="pack://application:,,,/FoodLog.Wpf;component/Images/meal.png">
+                 Title="Food Diary" Height="510" Width="550" d:DataContext="{d:DesignInstance {x:Type common:MainViewModel}}" Icon="pack://application:,,,/FoodLog.Wpf;component/Images/meal.png">
 
     <dx:ThemedWindow.Resources>
                 

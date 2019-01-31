@@ -4,16 +4,13 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 using Xamarin.Forms;
-
-using App1.Models;
-using App1.Services;
-using FoodLog.DTOs;
+using FoodLog.Common;
 
 namespace App1.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<EntryDTO> DataStore => DependencyService.Get<IDataStore<EntryDTO>>();
+        public IApiWrapper DataStore => DependencyService.Get<IApiWrapper>();
 
         bool isBusy = false;
         public bool IsBusy
@@ -22,8 +19,8 @@ namespace App1.ViewModels
             set { SetProperty(ref isBusy, value); }
         }
 
-        string title = string.Empty;
-        public string Title
+        String title = DateTime.Now.ToLongDateString();
+        public String Title
         {
             get { return title; }
             set { SetProperty(ref title, value); }
@@ -41,6 +38,8 @@ namespace App1.ViewModels
             OnPropertyChanged(propertyName);
             return true;
         }
+ 
+
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
